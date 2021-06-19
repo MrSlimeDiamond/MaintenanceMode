@@ -24,7 +24,6 @@ public class UserConnection {
     public UserConnection(final Socket socket) throws IOException {
         int state = 0;
         Log.debug("Recieved ping from " + socket.getInetAddress().toString());
-        Log.test(Config.getOption("motd"));
         DataInputStream inputStream = new DataInputStream(socket.getInputStream());
         while (true) {
             int size = Data.readUnsignedVarInt(inputStream);

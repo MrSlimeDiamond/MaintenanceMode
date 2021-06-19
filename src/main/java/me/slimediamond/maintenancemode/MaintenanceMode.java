@@ -58,7 +58,9 @@ public class MaintenanceMode {
                 confWrite.close();
             }
             confRead = new Scanner(config);
-            new Config();
+            //new Config();
+            Log.info("MOTD: "+Config.getOption("motd"));
+            Log.info("Kick message: "+Config.getOption("kickmsg"));
             /*
             Log.info("Config file:");
             while (confRead.hasNextLine()) {

@@ -10,14 +10,16 @@ import java.util.Arrays;
 import static me.slimediamond.maintenancemode.MaintenanceMode.confRead;
 
 public class Config {
+    /* use these later */
     String motd;
     String kickmsg;
     /* Read config */
+    /*
     public Config() throws IOException {
         while (confRead.hasNextLine()) {
             String line = confRead.nextLine();
             if (line.startsWith("motd:")) {
-                String[] l1 = line.split("motd: ", 0); /* oh, right.. */
+                String[] l1 = line.split("motd: ", 0);
                 motd = l1[1];
                 Log.debug("MOTD is: " + motd);
 
@@ -30,14 +32,15 @@ public class Config {
             }
         }
     }
+     */
     public static String[] l1;
     public static String getOption(String opt) throws IOException {
         try {
-        Log.debug(opt);
+        //Log.debug(opt);
             while (confRead.hasNextLine()) {
-            Log.debug("Has next line");
+            //Log.debug("Has next line");
             String line = confRead.nextLine();
-            Log.debug("Line: "+line);
+            //Log.debug("Line: "+line);
             if (line.startsWith(opt+":")) {
                 l1 = line.split(opt+": ", 0);
             }
