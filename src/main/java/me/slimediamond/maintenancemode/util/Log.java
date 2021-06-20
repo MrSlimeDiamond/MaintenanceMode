@@ -1,6 +1,7 @@
 package me.slimediamond.maintenancemode.util;
 
 public class Log {
+    private static final boolean debugMode = false;
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -30,22 +31,25 @@ public class Log {
         String classNameFull = getCallerClassName1().getFileName();
         int lineNum = getCallerClassName1().getLineNumber();
         String className[] = classNameFull.split(".java");
-        return className[0]+":"+lineNum;
+        if (debugMode) {
+            return className[0]+":"+lineNum;
+        }
+        return className[0];
     }
 
-    public static void info(String in) {
+    public static void info(Object in) {
         System.out.println("["+getCallerClassName()+"/"+ANSI_CYAN+"INFO"+ANSI_RESET+"] "+in);
     }
-    public static void error(String in) {
+    public static void error(Object in) {
         System.out.println(ANSI_RED+"["+getCallerClassName()+"/ERROR] "+in+ANSI_RESET);
     }
-    public static void warn(String in) {
+    public static void warn(Object in) {
         System.out.println(ANSI_YELLOW+"["+getCallerClassName()+"/WARN] "+in+ANSI_RESET);
     }
     public static void test(String in) {
         System.out.println("["+getCallerClassName()+"/"+ANSI_GREEN+"TEST"+ANSI_RESET+"] "+in);
     }
-    public static void debug(String in) {
+    public static void debug(Object in) {
         System.out.println("["+getCallerClassName()+"/"+ANSI_PURPLE+"DEBUG"+ANSI_RESET+"] "+in);
     }
 }

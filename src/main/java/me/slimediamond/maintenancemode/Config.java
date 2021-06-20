@@ -2,55 +2,37 @@ package me.slimediamond.maintenancemode;
 
 import me.slimediamond.maintenancemode.util.Log;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.net.Socket;
-import java.util.Arrays;
+import java.io.*;
+import java.util.Date;
+import java.util.Properties;
 
-import static me.slimediamond.maintenancemode.MaintenanceMode.confRead;
+import static java.lang.Integer.parseInt;
 
 public class Config {
-    /* use these later */
-    String motd;
-    String kickmsg;
-    /* Read config */
-    /*
+    private Properties prop;
     public Config() throws IOException {
-        while (confRead.hasNextLine()) {
-            String line = confRead.nextLine();
-            if (line.startsWith("motd:")) {
-                String[] l1 = line.split("motd: ", 0);
-                motd = l1[1];
-                Log.debug("MOTD is: " + motd);
+        File propFile = new File("./server.properties");
+        if (!propFile.exists()) {
+            Log.info("Properties file does not exist, creating...");
+            try (OutputStream output = new FileOutputStream("./server.properties")) {
 
-            } else {
-                if (line.startsWith("kickmsg:")) {
-                    String[] l1 = line.split("kickmsg: ");
-                    kickmsg = l1[1];
-                    Log.debug("Kick message is: "+kickmsg);
-                }
+                prop = new Properties();
+
+                // set the properties value
+                prop.setProperty("motd", "My server is under maintenance");
+                prop.setProperty("kickmsg", "Hello, my server is down for maintenance. Come back soon!");
+                prop.setProperty("address", "127.0.0.1");
+                prop.setProperty("port", "25565");
+
+                // save properties to project root folder
+                prop.store(output, null);
+
+                //Log.debug(prop);
+
+                new LoadConfig();
+            } catch (IOException e) {
+                Log.error(e.getStackTrace());
             }
-        }
-    }
-     */
-    public static String[] l1;
-    public static String getOption(String opt) throws IOException {
-        try {
-        //Log.debug(opt);
-            while (confRead.hasNextLine()) {
-            //Log.debug("Has next line");
-            String line = confRead.nextLine();
-            //Log.debug("Line: "+line);
-            if (line.startsWith(opt+":")) {
-                l1 = line.split(opt+": ", 0);
-            }
-        }
-            return l1[1];
-        } catch(NullPointerException e) {
-            /* Just in case... */
-            Log.error("Caught NPE while trying to get config option. Stack trace:");
-            e.printStackTrace();
-            return "An error occurred, check console!";
         }
     }
 }
