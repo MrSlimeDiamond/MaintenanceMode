@@ -53,16 +53,6 @@ public class MaintenanceMode {
         new LoadConfig();
 
         new Server(serverSocket);
-        Log.info("Initializing shutdown hook");
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            Log.info("Shutting down...");
-            try {
-                serverSocket.close();
-            } catch (IOException e) {
-                Log.error(e.getStackTrace());
-            }
-            Log.info("Thank you and goodbye.");
-        }));
     }
     public static MaintenanceMode getInstance() {
         return instance;

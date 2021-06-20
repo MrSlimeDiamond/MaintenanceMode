@@ -18,18 +18,16 @@ public class Config {
 
                 prop = new Properties();
 
-                // set the properties value
                 prop.setProperty("motd", "My server is under maintenance");
                 prop.setProperty("kickmsg", "Hello, my server is down for maintenance. Come back soon!");
                 prop.setProperty("address", "127.0.0.1");
                 prop.setProperty("port", "25565");
 
-                // save properties to project root folder
                 prop.store(output, null);
 
                 //Log.debug(prop);
 
-                new LoadConfig();
+                 new LoadConfig();
             } catch (IOException e) {
                 Log.error(e.getStackTrace());
             }

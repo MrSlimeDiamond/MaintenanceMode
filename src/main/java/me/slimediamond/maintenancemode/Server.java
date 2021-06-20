@@ -14,6 +14,17 @@ public class Server {
     public int port;
     private final boolean running = true;
     public Server(ServerSocket serverSocket) throws IOException {
+        Log.info("Initializing shutdown hook");
+        ServerSocket finalServerSocket1 = serverSocket;
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            Log.info("Shutting down...");
+            try {
+                finalServerSocket1.close();
+            } catch (IOException e) {
+                Log.error(e.getStackTrace());
+            }
+            Log.info("Thank you and goodbye.");
+        }));
         try {
             //Log.debug(Config.getOption("port"));
             addr = InetAddress.getByName(prop.getProperty("address"));

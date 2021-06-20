@@ -1,7 +1,10 @@
 package me.slimediamond.maintenancemode.util;
 
+import java.io.File;
+
 public class Log {
-    private static final boolean debugMode = false;
+    static File debugFile = new File(".debug");
+    private static boolean debugMode = false;
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -11,7 +14,14 @@ public class Log {
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
-
+    static {
+        if (debugFile.exists()) {
+            debugMode = true;
+            Log.info("Debug mode is enabled. It can be disabled by removing your .debug file");
+        } else {
+            Log.info("Debug mode is disabled. It can be enabled by making a file called .debug");
+        }
+    }
     public static StackTraceElement getCallerClassName1() {
         StackTraceElement[] stElements = Thread.currentThread().getStackTrace();
         String callerClassName = null;
@@ -36,7 +46,6 @@ public class Log {
         }
         return className[0];
     }
-
     public static void info(Object in) {
         System.out.println("["+getCallerClassName()+"/"+ANSI_CYAN+"INFO"+ANSI_RESET+"] "+in);
     }
@@ -50,6 +59,8 @@ public class Log {
         System.out.println("["+getCallerClassName()+"/"+ANSI_GREEN+"TEST"+ANSI_RESET+"] "+in);
     }
     public static void debug(Object in) {
-        System.out.println("["+getCallerClassName()+"/"+ANSI_PURPLE+"DEBUG"+ANSI_RESET+"] "+in);
+        if (debugMode) {
+            System.out.println("[" + getCallerClassName() + "/" + ANSI_PURPLE + "DEBUG" + ANSI_RESET + "] " + in);
+        }
     }
 }
