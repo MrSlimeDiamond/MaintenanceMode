@@ -22,10 +22,9 @@ public class Config {
                 prop.setProperty("kickmsg", "Hello, my server is down for maintenance. Come back soon!");
                 prop.setProperty("address", "127.0.0.1");
                 prop.setProperty("port", "25565");
+                prop.setProperty("version", "Maintenance");
 
                 prop.store(output, null);
-
-                //Log.debug(prop);
 
                  new LoadConfig();
             } catch (IOException e) {
